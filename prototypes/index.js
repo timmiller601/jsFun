@@ -24,17 +24,23 @@ const kittyPrompts = {
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.filter(cat => {
+  return cat.color === 'orange'; 
+}) .map(orangeKitties => {
+  return orangeKitties.name;
+});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // on line 27 I am iterating through the array of cat objects to find each cat that has a color of orange. filter creates a new array with the two cat objects that have the property of the color orange. from there it asks us to return an array of just the names of the cats. on line 29 I am mapping through the array because map will return an array of the same length. I have a parameter of orangeKitties which is the returned data from the filter, and I am returning the name of each cat. 
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a, b) => {
+        return b.age - a.age;
+        });
     return result;
 
     // Annotation:
@@ -55,7 +61,10 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.map((cat) => {
+        cat.age += 2;
+        return cat
+});
     return result;
   }
 };
@@ -87,7 +96,18 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = clubs.reduce((obj, currentClub) => {
+      currentClub.members.forEach((member) => {
+        if (!obj[member]) {
+          obj[member] = [currentClub.club];
+        } else {
+          obj[member].push(currentClub.club);
+        }
+      });
+      return obj;
+    }, {});;
+
+    // 
     return result;
 
     // Annotation:
@@ -123,7 +143,12 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = mods.map(module => {
+        let studentsPerInstructor = module.students / module.instructors; 
+  
+        return {mod: module.mod, studentsPerInstructor: studentsPerInstructor }
+        });
+
     return result;
 
     // Annotation:
@@ -158,7 +183,10 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.map(cake => {
+        return {flavor: cake.cakeFlavor, inStock: cake.inStock}
+        });
+
     return result;
 
     // Annotation:
@@ -186,7 +214,9 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => {
+        return cake.inStock >= 1;
+        });
     return result;
 
     // Annotation:
@@ -197,7 +227,11 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((sum, curr) => {
+        sum += curr.inStock;
+        return sum
+    } ,0);
+
     return result;
 
     // Annotation:
@@ -209,7 +243,14 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((toppingsArr, cake) => {
+        cake.toppings.forEach((topping) => {
+        if (toppingsArr.indexOf(topping) === -1) {
+        toppingsArr.push(topping);
+                }
+            })
+            return toppingsArr 
+        } ,[]);
     return result;
 
     // Annotation:
@@ -227,7 +268,16 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((obj, cake) => {
+  cake.toppings.forEach((topping) => {
+    if (!obj[topping]) {
+      obj[topping] = 0;
+    }
+    obj[topping]++
+  })
+
+ return obj
+} ,{});
     return result;
 
     // Annotation:
@@ -262,7 +312,9 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.filter(room => {
+        return room.program === 'FE';
+        });
     return result;
 
     // Annotation:
@@ -277,7 +329,21 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.reduce((capacityObj, classroom) => {
+      if (!capacityObj['feCapacity']) {
+        capacityObj['feCapacity'] = 0;
+      } else if (!capacityObj['beCapacity']) {
+        capacityObj['beCapacity'] = 0;
+      }
+      
+      if (classroom.program === 'FE') {
+        capacityObj['feCapacity'] += classroom.capacity;
+      } else {
+        capacityObj['beCapacity'] += classroom.capacity;
+      }
+
+      return capacityObj;
+    }, {}); ;
     return result;
 
     // Annotation:
@@ -287,7 +353,9 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a,b) => {
+        return a.capacity - b.capacity;
+        });
     return result;
 
     // Annotation:
@@ -317,7 +385,10 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((sum, brewery) => {
+        sum += brewery.beers.length;
+         return sum
+        } ,0);
     return result;
 
     // Annotation:
@@ -333,7 +404,9 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.map(brewery => {
+        return {name: brewery.name, beerCount: brewery.beers.length}
+        });
     return result;
 
     // Annotation:

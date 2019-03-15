@@ -46,28 +46,33 @@ const scope = {
         let number = 28;
       }
 
-      // Log A: number
+      // Log A: number 75
 
       function newNumber() {
         number = 64;
 
-        // Log B: number
+        // Log B: number 64
       }
 
       newNumber();
 
-      // Log C: number
+      // Log C: number 64
     }
 
     numberFunction();
 
-    // Log D: number
+    // Log D: number 30
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'A': 75}, 
+      {'B': 64}, 
+      {'C': 64}, 
+      {'D': 30}
+    ];;
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // on creation we see that there is a global number vairable, a function named number function and that is all that will be hoisted to the top. Upon exectution we assign 30 to the global variable of number, and then invoke numberFunction(). Once number function is invoked we will hit our first console log at Log A - which asks for the value of number at that point. Number is assigned 75 within the function and is outside of the block scope before it, so the value is 75. the next exectution that occurs is Log B and that is invoking newNumber() and that is assigning number 64. After newNumber is invoked number has been reassigned to 64 and log C will be 64. there is one last log D and that is logging outside of the function and will be equal to 30 from the global scope. 
   },
 
   exerciseC() {
